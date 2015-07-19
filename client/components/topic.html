@@ -1,0 +1,16 @@
+<template name="topic">
+<div class="topic well well-lg" data-id="{{ _id }}">
+	<button class="delete">Delete Prompt</button>
+	<h3>{{ prompt }}</h3>
+	
+
+	{{ #each indexedArray responses }}
+	<li>
+		<span class="text" style="white-space: normal;">{{ text }}</span>
+		<span class="vote btn pull-right" data-id="{{ _index }}">
+			<button class="votes"  >{{ votes }}</button>
+		</span>
+	</li>
+	{{ /each }}
+</div>
+</template>

@@ -1,0 +1,26 @@
+<template name="topicForm">
+{{ #if currentUser }}
+<form>
+	<div class="topic-group">
+		<label>Prompt</label>
+		<input type="text" name="prompt" class="form-control" placeholder="Your Prompt">
+	</div>
+	<div class="topic-group">
+		<label>Response #1</label>
+		<input type="text" name="response1" class="form-control" placeholder="Response #1">
+	</div>
+	<div class="topic-group">
+		<label>Response #2</label>
+		<input type="text" name="response2" class="form-control" placeholder="Response #2">
+	</div>
+	<div class="topic-group">
+		<label>Response #3</label>
+		<input type="text" name="response3" class="form-control" placeholder="Response #3">
+	</div>
+
+	<button type="submit" class="btn btn-lg btn-primary btn-block">Create Pun Prompt</button>
+</form>
+{{ else }}
+	Log in to submit new pun topics!
+{{ /if }}
+</template>

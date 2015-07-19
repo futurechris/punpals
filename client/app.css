@@ -1,0 +1,12 @@
+body {
+	padding-top: 50px;
+}
+.topics {
+	display: flex;
+	flex-flow:row wrap;
+	justify-content:center;
+}
+.topic {
+	width:25%;
+	margin:20px;
+}
