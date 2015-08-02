@@ -6,11 +6,23 @@
 
 	{{ #each indexedArray responses }}
 	<li>
-		<span class="text" style="white-space: normal;">{{ text }}</span>
-		<span class="vote btn pull-right" data-id="{{ _index }}">
-			<button class="votes"  >{{ votes }}</button>
-		</span>
+		<div class="row">
+			<span class="text col-xs-9" style="white-space: normal;">{{ text }} ({{ username }})</span>
+			<span class="vote btn" data-id="{{ _index }}">
+				<button class="votes"  >{{ votes }}</button>
+			</span>
+		</div>
 	</li>
 	{{ /each }}
+	
+	<div class="topic-group">
+		<label>Suggest a Pun!</label>
+		<div>
+			<form>
+				<input type="text" name="suggest" data-id="{{ _id }}" class="form-control greatscotts" placeholder="The punnier, the better!">
+				<button type="submit" class="suggestion btn btn-primary">Submit Suggestion</button>
+			</form>
+		</div>
+	</div>
 </div>
 </template>

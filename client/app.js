@@ -1,6 +1,6 @@
 Template.body.helpers({
 	topics: function(){
-		return Topics.find();
+		return Topics.find({}, {sort: [["createdAt", "desc"]]});
 	}
 });
 
