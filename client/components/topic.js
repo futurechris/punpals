@@ -10,16 +10,33 @@ Template.topic.events({
 		var voteID  = $(event.currentTarget).data('id');
 
 		// create the incrementing object so we can add to the corresponding vote
-		var voteString = 'responses.' + voteID + '.votes';
+		var voteString = 'votes';
 		var action = {};
 		action[voteString] = 1;
 
-		// increment the number of votes for this choice
-		Topics.update(
-			{ _id: topicID },
+		Responses.update(
+			{ _id: voteID },
 			{ $inc: action }
 		);
+	},
+	"click .winner": function(event) {
+		// prevent the default behavior
+		event.preventDefault();
 
+		// get the parent (topic) id
+		var topicID = $(event.currentTarget).parent().parent().parent('.topic').data('id');
+		var responseID  = $(event.currentTarget).data('id');
+
+		// create the incrementing object so we can add to the corresponding vote
+		var winningString = 'winner';
+		var action = {};
+		action[winningString] = responseID;
+
+		// set the suggestion to winner
+		Topics.update(
+			{ _id: topicID },
+			{ $set: action }
+		);
 	},
 	"click .delete": function(){
 		Topics.remove(this._id);
@@ -30,21 +47,24 @@ Template.topic.events({
 		var topicID = $(event.currentTarget).children('.form-control').data('id');
 		var suggestionText = event.target.suggest.value;
 
-		var action = {
-			"responses": {
+		var newSuggestion = {
 				text: suggestionText,
 				votes: 0,
 				createdAt: new Date(), // current time
 				owner: Meteor.userId(), // _id of logging in user
-				username: Meteor.user().username
-			}
-		};
+				username: Meteor.user().username,
+				_topicID: topicID
+			};
 
-		Topics.update(
-			{ _id: topicID },
-			{ $push: action }
-		);
+		newSuggestion._id = Responses.insert(newSuggestion);
+
 
 		event.target.suggest.value = "";
 	}
+});
+
+Template.topic.helpers({
+	topicResponses: function(id){
+		return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]]});
+	} 
 });

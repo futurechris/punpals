@@ -37,3 +37,7 @@ Meteor.startup(function()
 Meteor.publish("topics", function() {
 	return Topics.find();
 });
+
+Meteor.publish("responses", function() {
+	return Responses.find();
+});

@@ -4,12 +4,20 @@
 	<h3>{{ prompt }}</h3>
 	
 
-	{{ #each indexedArray responses }}
+	{{ #each topicResponses _id }}
 	<li>
 		<div class="row">
+			{{ #if checkResponseWinner ../winner _id }}
+				<span class = "text col-xs-6">Winner Winner Chicken Dinner!</span>
+			{{/if}}
 			<span class="text col-xs-9" style="white-space: normal;">{{ text }} ({{ username }})</span>
-			<span class="vote btn" data-id="{{ _index }}">
+			<span class="vote btn" data-id="{{ _id }}" data-index="{{ _index }}">
 				<button class="votes"  >{{ votes }}</button>
+			</span>
+			<span class="winner btn" data-id="{{ _id }}" data-index="{{ _index }}">
+				{{ #if checkTopicOwner ../_id }}
+				<button class="winning" >Mark As Winner</button>
+				{{ /if }}
 			</span>
 		</div>
 	</li>
