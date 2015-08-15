@@ -13,7 +13,11 @@ UI.registerHelper('indexedArray', function(context, options) {
 		});
 	}
 })
+
 UI.registerHelper('checkTopicOwner', function(topicID){
+	if(!Meteor.user()){
+		return false;
+	}
 	var topic = Topics.findOne({_id:topicID}, {fields: {username:1}});
 	if(!topic){
 		return false;
@@ -22,6 +26,20 @@ UI.registerHelper('checkTopicOwner', function(topicID){
 		return false;
 	}
 	return topic.username === Meteor.user().username;
+})
+
+UI.registerHelper('checkResponseOwner', function(responseID){
+	if(!Meteor.user()){
+		return false;
+	}
+	var response = Responses.findOne({_id:responseID}, {fields: {username:1}});
+	if(!response){
+		return false;
+	}
+	if(typeof response.username === "undefined"){
+		return false;
+	}
+	return response.username === Meteor.user().username;
 })
 
 UI.registerHelper('checkResponseWinner', function(winningID, responseID){

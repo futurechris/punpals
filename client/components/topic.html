@@ -1,6 +1,8 @@
 <template name="topic">
 <div class="topic well well-lg" data-id="{{ _id }}">
-	<button class="delete">Delete Prompt</button>
+	{{ #if checkTopicOwner _id }}
+		<button class="deletePrompt">Delete Prompt</button>
+	{{ /if }}
 	<h3>{{ prompt }}</h3>
 	
 
@@ -19,18 +21,27 @@
 				<button class="winning" >Mark As Winner</button>
 				{{ /if }}
 			</span>
+			<span class="deleteResponse btn" data-id="{{ _id }}" data-index="{{ _index }}">
+				{{ #if checkResponseOwner _id }}
+				<button class="deleteResponseBtn" >Delete Suggestion</button>
+				{{ /if }}
+			</span>
 		</div>
 	</li>
 	{{ /each }}
 	
 	<div class="topic-group">
-		<label>Suggest a Pun!</label>
-		<div>
-			<form>
-				<input type="text" name="suggest" data-id="{{ _id }}" class="form-control greatscotts" placeholder="The punnier, the better!">
-				<button type="submit" class="suggestion btn btn-primary">Submit Suggestion</button>
-			</form>
-		</div>
+		{{ #if currentUser }}
+			<label>Suggest a Pun!</label>
+			<div>
+				<form>
+					<input type="text" name="suggest" data-id="{{ _id }}" class="form-control greatscotts" placeholder="The punnier, the better!">
+					<button type="submit" class="suggestion btn btn-primary">Submit Suggestion</button>
+				</form>
+			</div>
+		{{ else }}
+			<label>Login or sign up to suggest a pun!</label>
+		{{ /if }}
 	</div>
 </div>
 </template>

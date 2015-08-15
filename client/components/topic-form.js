@@ -4,6 +4,10 @@ Template.topicForm.events({
 		// stop the form from submitting
 		event.preventDefault();
 
+		if(!Meteor.user()){
+			return;
+		}
+
 		// get the data we need from the form
 		var newTopic = {
 			prompt: event.target.prompt.value,

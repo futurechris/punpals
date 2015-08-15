@@ -19,6 +19,7 @@ Template.topic.events({
 			{ $inc: action }
 		);
 	},
+
 	"click .winner": function(event) {
 		// prevent the default behavior
 		event.preventDefault();
@@ -38,11 +39,26 @@ Template.topic.events({
 			{ $set: action }
 		);
 	},
-	"click .delete": function(){
-		Topics.remove(this._id);
+
+	"click .deletePrompt": function(){
+		if(confirm("Deleting your fantastic pun topic can't be undone! Are you sure you want to live in a world without that topic?"))
+		{
+			Topics.remove(this._id);
+		}
 	},
+
+	"click .deleteResponse": function(){
+		if(confirm("Are you really the type of person who deletes awesome suggestions, even though it can't be undone?"))
+		{
+			Responses.remove(this._id);
+		}
+	},
+
 	"submit form": function(event){
 		event.preventDefault();
+		if(!Meteor.user()){
+			return;
+		}
 
 		var topicID = $(event.currentTarget).children('.form-control').data('id');
 		var suggestionText = event.target.suggest.value;
@@ -57,7 +73,6 @@ Template.topic.events({
 			};
 
 		newSuggestion._id = Responses.insert(newSuggestion);
-
 
 		event.target.suggest.value = "";
 	}
