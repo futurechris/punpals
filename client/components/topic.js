@@ -5,19 +5,12 @@ Template.topic.events({
 		// prevent the default behavior
 		event.preventDefault();
 
-		// get the parent (topic) id
-		var topicID = $(event.currentTarget).parent().parent().parent('.topic').data('id');
-		var voteID  = $(event.currentTarget).data('id');
+		// get IDs needed to create vote object
+		var topicID 		= $(event.currentTarget).parent().parent().parent('.topic').data('id');
+		var responseID  = $(event.currentTarget).data('id');
+		var userID 			= Meteor.userId();
 
-		// create the incrementing object so we can add to the corresponding vote
-		var voteString = 'votes';
-		var action = {};
-		action[voteString] = 1;
-
-		Responses.update(
-			{ _id: voteID },
-			{ $inc: action }
-		);
+		createUserVoteForResponse(topicID, responseID, userID);
 	},
 
 	"click .winner": function(event) {
@@ -67,7 +60,7 @@ Template.topic.events({
 				text: suggestionText,
 				votes: 0,
 				createdAt: new Date(), // current time
-				owner: Meteor.userId(), // _id of logging in user
+				owner: Meteor.userId(), // _id of logged in user
 				username: Meteor.user().username,
 				_topicID: topicID
 			};
@@ -83,3 +76,44 @@ Template.topic.helpers({
 		return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]]});
 	} 
 });
+
+function createUserVoteForResponse(topicID, responseID, userID)
+{
+		var userVoteQuery = {
+			_responseID:	responseID,
+			_userID: 			userID,
+			_topicID: 		topicID,
+		};
+
+		var userVote = UserVotes.findOne(userVoteQuery);
+
+		if(userVote)
+		{
+			// update the vote's createdAt field
+			var updateResult = UserVotes.update(
+				{
+					_id: userVote._id
+				},
+				{
+					$set: {
+						createdAt: new Date()
+					}
+				}
+			);
+		}
+		else
+		{
+			userVoteQuery["createdAt"] = new Date();
+			UserVotes.insert(userVoteQuery);
+
+			// create the incrementing object so we can add to the corresponding vote
+			var action = {
+				'votes': 1
+			};
+
+			Responses.update(
+				{ _id: 	responseID },
+				{ $inc: action }
+			);
+		}
+}

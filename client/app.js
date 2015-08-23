@@ -51,6 +51,7 @@ UI.registerHelper('checkResponseWinner', function(winningID, responseID){
 
 Meteor.subscribe("topics");
 Meteor.subscribe("responses");
+Meteor.subscribe("uservotes");
 
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
