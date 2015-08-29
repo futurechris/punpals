@@ -49,6 +49,15 @@ UI.registerHelper('checkResponseWinner', function(winningID, responseID){
 	return winningID === responseID;
 })
 
+UI.registerHelper('userHasVoted', function(responseID){
+	var userID = Meteor.userId();
+	var voteFound = UserVotes.findOne({_responseID: responseID, _userID: userID});
+	if(!voteFound){
+		return false;
+	}
+	return true;
+})
+
 Meteor.subscribe("topics");
 Meteor.subscribe("responses");
 Meteor.subscribe("uservotes");

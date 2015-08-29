@@ -13,6 +13,32 @@ Template.topic.events({
 		createUserVoteForResponse(topicID, responseID, userID);
 	},
 
+	"click .unvote": function(event) {
+		event.preventDefault();
+
+		var topicID 		= $(event.currentTarget).parent().parent().parent('.topic').data('id');
+		var responseID  = $(event.currentTarget).data('id');
+		var userID 			= Meteor.userId();
+
+		var foundVote		= UserVotes.findOne({_topicID:topicID, _responseID:responseID, _userID:userID});
+
+		if(!foundVote)
+		{
+			// Couldn't find the vote for some reason - exit.
+			return;
+		}
+		var deleteResult = UserVotes.remove(foundVote._id);
+
+		var action = {
+				'votes': -1
+			};
+		Responses.update(
+			{ _id: 	responseID },
+			{ $inc: action }
+		);
+
+	},
+
 	"click .winner": function(event) {
 		// prevent the default behavior
 		event.preventDefault();
