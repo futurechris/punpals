@@ -24,9 +24,11 @@
 				</span>
 			{{ /if }}
 			<span class="winner btn" data-id="{{ _id }}" data-index="{{ _index }}">
-				{{ #if checkTopicOwner ../_id }}
-				<button class="winning" >Mark As Winner</button>
-				{{ /if }}
+				{{ #unless checkResponseWinner ../winner _id }}	
+					{{ #if checkTopicOwner ../_id }}
+					<button class="winning" >Mark As Winner</button>
+					{{ /if }}
+				{{ /unless }}
 			</span>
 			<span class="deleteResponse btn" data-id="{{ _id }}" data-index="{{ _index }}">
 				{{ #if checkResponseOwner _id }}
