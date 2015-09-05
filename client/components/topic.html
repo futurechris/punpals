@@ -5,38 +5,14 @@
 	{{ /if }}
 	<h3>{{ prompt }}</h3>
 	
+	{{ #with topicWinner _id }}
+		{{ >response }}
+	{{ /with }}
 
 	{{ #each topicResponses _id }}
-	<li>
-		<div class="row">
-			{{ #if checkResponseWinner ../winner _id }}
-				<span class = "text col-xs-6">Winner Winner Chicken Dinner!</span>
-			{{/if}}
-			<span class="text col-xs-9" style="white-space: normal;">{{ text }} ({{ username }})</span>
-			{{ #if userHasVoted _id }}
-				<span>VOTED. Total: {{ votes }}</span>
-				<span class="unvote" data-id="{{ _id }}" data-index="{{ _index }}">
-					<button class="unvotes">Remove Vote</button>
-				</span>
-			{{ else }}
-				<span class="vote btn" data-id="{{ _id }}" data-index="{{ _index }}">
-					<button class="votes">{{ votes }}</button>
-				</span>
-			{{ /if }}
-			<span class="winner btn" data-id="{{ _id }}" data-index="{{ _index }}">
-				{{ #unless checkResponseWinner ../winner _id }}	
-					{{ #if checkTopicOwner ../_id }}
-					<button class="winning" >Mark As Winner</button>
-					{{ /if }}
-				{{ /unless }}
-			</span>
-			<span class="deleteResponse btn" data-id="{{ _id }}" data-index="{{ _index }}">
-				{{ #if checkResponseOwner _id }}
-				<button class="deleteResponseBtn" >Delete Suggestion</button>
-				{{ /if }}
-			</span>
-		</div>
-	</li>
+		{{ #unless checkResponseWinner ../winner _id }}
+			{{ >response }}
+		{{ /unless }}
 	{{ /each }}
 	
 	<div class="topic-group">
@@ -52,5 +28,6 @@
 			<label>Login or sign up to suggest a pun!</label>
 		{{ /if }}
 	</div>
+
 </div>
 </template>

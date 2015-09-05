@@ -98,6 +98,19 @@ Template.topic.events({
 });
 
 Template.topic.helpers({
+	topicWinner: function(id){
+		var topic = Topics.findOne({_id:id});
+		if(topic === null || typeof topic === "undefined")
+		{
+			return null;
+		}
+		if (typeof topic.winner === "undefined")
+		{
+			return null;
+		}
+		return Responses.findOne({_id:topic.winner});
+	},
+
 	topicResponses: function(id){
 		return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]]});
 	} 
