@@ -6,13 +6,14 @@
 			{{ /if }}
 			<span class="text col-xs-9" style="white-space: normal;">{{ text }} ({{ username }})</span>
 			{{ #if userHasVoted _id }}
-				<span>VOTED. Total: {{ votes }}</span>
+				<span>Votes: {{ votes }}</span>
 				<span class="unvote" data-id="{{ _id }}" data-index="{{ _index }}">
-					<button class="unvotes">Remove Vote</button>
+					<button class="unvotes"><img src="/images/thumb-blue.gif" /></button>
 				</span>
 			{{ else }}
 				<span class="vote btn" data-id="{{ _id }}" data-index="{{ _index }}">
-					<button class="votes">{{ votes }}</button>
+					<span>{{ votes }}</span>
+					<button class="votes"><img src="/images/thumb-grey.gif" /></button>
 				</span>
 			{{ /if }}
 			<span class="winner btn" data-id="{{ _id }}" data-index="{{ _index }}">
