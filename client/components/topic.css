@@ -14,3 +14,8 @@ li .text {
   border: 0px solid transparent; /* this was 1px earlier */
   background-color: transparent;
 }
+
+.deletePrompt {
+	border: 0px solid transparent;
+	background-color: transparent;
+}
