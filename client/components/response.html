@@ -2,7 +2,7 @@
 	<li>
 		<div class="row">
 			{{ #if checkResponseWinner ../winner _id }}
-				<span class = "text col-xs-6">Winner!</span>
+				<img src="images/star-yellow-small.png"/>
 			{{ /if }}
 			<span class="text col-xs-9" style="white-space: normal;">{{ text }} ({{ username }})</span>
 			{{ #if userHasVoted _id }}
@@ -18,13 +18,13 @@
 			<span class="winner btn" data-id="{{ _id }}" data-index="{{ _index }}">
 				{{ #unless checkResponseWinner ../winner _id }}	
 					{{ #if checkTopicOwner ../_id }}
-					<button class="winning" >Mark As Winner</button>
+						<button class="winning"><img src="images/star-grey-small.png"/></button>
 					{{ /if }}
 				{{ /unless }}
 			</span>
 			<span class="deleteResponse btn" data-id="{{ _id }}" data-index="{{ _index }}">
 				{{ #if checkResponseOwner _id }}
-				<button class="deleteResponseBtn" >Delete Suggestion</button>
+					<button class="deleteResponseBtn" >Delete Suggestion</button>
 				{{ /if }}
 			</span>
 		</div>

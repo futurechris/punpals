@@ -10,3 +10,7 @@ li {
 li .text {
 	margin-left: 10px;
 }
+.winning {
+  border: 0px solid transparent; /* this was 1px earlier */
+  background-color: transparent;
+}
