@@ -8,7 +8,7 @@ Meteor.topicFunctions = {
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
 
-		createUserVoteForResponse(topicID, responseID, userID);
+		Meteor.topicFunctions.createUserVoteForResponse(topicID, responseID, userID);
 	},
 
 	clickUnvoteFunction: function(event) {
@@ -40,8 +40,10 @@ Meteor.topicFunctions = {
 		// prevent the default behavior
 		event.preventDefault();
 
+		console.log("clickWinnerFunction");
+
 		// get the parent (topic) id
-		var topicID = $(event.currentTarget).parent().parent().parent('.topic').data('id');
+		var topicID = $(event.currentTarget).parent().parent().parent('.responseParent').data('id');
 		var responseID  = $(event.currentTarget).data('id');
 
 		// create the incrementing object so we can add to the corresponding vote

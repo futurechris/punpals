@@ -1,3 +1,13 @@
+Router.route('/', function() {
+	this.layout('app');
+	this.render('front', {to: 'content'});
+});
+
+Router.route('/topic/:_id', function() {
+	this.layout('app', {data: function(){ return Topics.findOne({_id: this.params._id }) }});
+	this.render('topicDetail', {to: 'content'});
+});
+
 Template.body.helpers({
 	topics: function(){
 		return Topics.find({}, {sort: [["createdAt", "desc"]]});

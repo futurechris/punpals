@@ -1,0 +1,39 @@
+<template name="topicDetail">
+	<div class="container">
+ 		<div class="row">
+ 			<div class="col-md-12">
+ 				<a href="/">Home</a>
+				<div class="responseParent well well-lg" data-id="{{ _id }}">
+					{{ #if checkTopicOwner _id }}
+						<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
+					{{ /if }}
+					<h3>{{ prompt }}</h3>
+					
+					{{ #with topicWinner _id }}
+						{{ >response }}
+					{{ /with }}
+
+					{{ #each topicResponses _id }}
+						{{ #unless checkResponseWinner ../winner _id }}
+							{{ >response }}
+						{{ /unless }}
+					{{ /each }}
+					
+					<div class="topic-group">
+						{{ #if currentUser }}
+							<label>Suggest a Pun!</label>
+							<div>
+								<form>
+									<input type="text" name="suggest" data-id="{{ _id }}" class="form-control greatscotts" placeholder="The punnier, the better!">
+									<button type="submit" class="suggestion btn btn-primary">Submit Suggestion</button>
+								</form>
+							</div>
+						{{ else }}
+							<label>Login or sign up to suggest a pun!</label>
+						{{ /if }}
+					</div>
+				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+</template>

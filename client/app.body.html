@@ -1,21 +1,11 @@
-<body>
-	<!-- LOGIN -->
-	<div>
-		{{ >loginButtons }}
-	</div>
- 	<!-- PULL IN THE TOPIC CREATION FORM -->
- 	<div class="container">
- 		<div class="row">
- 			<div class="col-md-6 col-md-offset-3">
- 				{{ >topicForm }}
- 			</div>
- 		</div>
- 	</div>
-
- 	<!-- LOOP OVER TOPICS AND SHOW EACH -->
- 	<div class="topics">
- 		{{ #each topics }}
- 			{{ >topic }}
- 		{{ /each }}
- 	</div>
-</body>
+<template name="app">
+	<body>
+		<!-- LOGIN -->
+		<div>
+			<center>{{ >loginButtons }}</center>
+		</div>
+	 	<content>
+	 		{{ > yield "content" }}
+	 	</content>
+	</body>
+</template>

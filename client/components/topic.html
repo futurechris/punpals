@@ -1,9 +1,9 @@
 <template name="topic">
-<div class="topic well well-lg" data-id="{{ _id }}">
+<div class="topic responseParent well well-lg" data-id="{{ _id }}">
 	{{ #if checkTopicOwner _id }}
 		<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
 	{{ /if }}
-	<h3>{{ prompt }}</h3>
+	<a href="/topic/{{_id}}"><h3>{{ prompt }}</h3></a>
 	
 	{{ #with topicWinner _id }}
 		{{ >response }}
