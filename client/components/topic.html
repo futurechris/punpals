@@ -3,7 +3,7 @@
 	{{ #if checkTopicOwner _id }}
 		<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
 	{{ /if }}
-	<a href="/topic/{{_id}}"><h3>{{ prompt }}</h3></a>
+	<h3><a href="/topic/{{_id}}">{{ prompt }}</a> ({{username}})</h3>
 	
 	{{ #with topicWinner _id }}
 		{{ >response }}
