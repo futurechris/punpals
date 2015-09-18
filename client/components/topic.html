@@ -9,7 +9,7 @@
 		{{ >response }}
 	{{ /with }}
 
-	{{ #each topicResponses _id }}
+	{{ #each topicResponses _id 3 }}
 		{{ #unless checkResponseWinner ../winner _id }}
 			{{ >response }}
 		{{ /unless }}

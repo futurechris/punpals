@@ -108,8 +108,16 @@ Meteor.topicFunctions = {
 		return Responses.findOne({_id:topic.winner});
 	},
 
-	topicResponsesHelper: function(id){
-		return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]]});
+	topicResponsesHelper: function(id, limit){
+		if(typeof limit === "undefined" || limit === null || limit == 0)
+		{
+			return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]]});
+		}
+		else
+		{
+			return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]], limit: limit});	
+		}
+
 	},
 
 	createUserVoteForResponse: function(topicID, responseID, userID){
