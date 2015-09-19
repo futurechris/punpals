@@ -19,5 +19,6 @@ Template.topicForm.events({
 		};
 
 		Topics.insert(newTopic);
+		FlashMessages.sendSuccess("Prompt submitted. You're <em>dominating!</em>");
 	}
 });

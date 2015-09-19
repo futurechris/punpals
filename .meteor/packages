@@ -11,3 +11,4 @@ accounts-ui
 accounts-password
 accounts-facebook
 iron:router
+mrt:flash-messages
