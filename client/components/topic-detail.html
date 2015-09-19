@@ -4,6 +4,7 @@
  			<div class="col-md-12">
  				<a href="/">Home</a>
 				<div class="responseParent well well-lg" data-id="{{ _id }}">
+					{{ >flashMessages }}
 					{{ #if checkTopicOwner _id }}
 						<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
 					{{ /if }}

@@ -93,6 +93,7 @@ Meteor.topicFunctions = {
 		newSuggestion._id = Responses.insert(newSuggestion);
 
 		event.target.suggest.value = "";
+		FlashMessages.sendSuccess("Response submitted. You're fully <em>responsible</em> for any groans it causes.");
 	},
 
 	topicWinnerHelper: function(id){
