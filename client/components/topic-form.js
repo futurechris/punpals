@@ -14,8 +14,8 @@ Template.topicForm.events({
 			createdAt: new Date(), // current time
 			owner: Meteor.userId(), // _id of logging in user
 			username: Meteor.user().username,
-			winner: ""
-
+			winner: "",
+			modifyDate: new Date()
 		};
 
 		Topics.insert(newTopic);
