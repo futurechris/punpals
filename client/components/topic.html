@@ -14,7 +14,7 @@
 			{{ >response }}
 		{{ /unless }}
 	{{ /each }}
-	
+	<!--
 	<div class="topic-group">
 		{{ #if currentUser }}
 			<label>Suggest a Pun!</label>
@@ -28,6 +28,9 @@
 			<label>Login or sign up to suggest a pun!</label>
 		{{ /if }}
 	</div>
-
+-->
+	<div class="well">
+		<a href="/topic/{{_id}}">See all responses, or add your own!</a>
+	</div>
 </div>
 </template>
