@@ -8,17 +8,7 @@ Template.topicForm.events({
 			return;
 		}
 
-		// get the data we need from the form
-		var newTopic = {
-			prompt: event.target.prompt.value,
-			createdAt: new Date(), // current time
-			owner: Meteor.userId(), // _id of logging in user
-			username: Meteor.user().username,
-			winner: "",
-			modifyDate: new Date()
-		};
-
-		Topics.insert(newTopic);
+		Meteor.call('insertNewPrompt', event.target.prompt.value, Meteor.userId(), Meteor.user().username);
 		FlashMessages.sendSuccess("Prompt submitted. You're <em>dominating!</em>");
 	}
 });
