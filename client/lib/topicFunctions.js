@@ -8,7 +8,7 @@ Meteor.topicFunctions = {
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
 
-		Meteor.topicFunctions.createUserVoteForResponse(topicID, responseID, userID);
+		Meteor.call('voteOnResponse', topicID, responseID, userID);
 	},
 
 	clickUnvoteFunction: function(event) {
@@ -18,57 +18,43 @@ Meteor.topicFunctions = {
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
 
-		var foundVote		= UserVotes.findOne({_topicID:topicID, _responseID:responseID, _userID:userID});
-
-		if(!foundVote)
-		{
-			// Couldn't find the vote for some reason - exit.
-			return;
-		}
-		var deleteResult = UserVotes.remove(foundVote._id);
-
-		var action = {
-				'votes': -1
-			};
-		Responses.update(
-			{ _id: 	responseID },
-			{ $inc: action }
-		);
+		Meteor.call('removeVoteFromResponse', topicID, responseID, userID);
 	},
 
 	clickWinnerFunction: function(event) {
 		// prevent the default behavior
 		event.preventDefault();
 
-		console.log("clickWinnerFunction");
+		console.log("clickWinner");
 
 		// get the parent (topic) id
-		var topicID = $(event.currentTarget).parent().parent().parent('.responseParent').data('id');
+		// There has to be a better way than this. :)
+		var topicID 		= $(event.currentTarget).parent().parent().parent().parent().parent('.responseParent').data('id');
 		var responseID  = $(event.currentTarget).data('id');
+		var userID 			= Meteor.userId();
 
-		// create the incrementing object so we can add to the corresponding vote
-		var winningString = 'winner';
-		var action = {};
-		action[winningString] = responseID;
+		console.log("passing: "+topicID+" "+responseID+" "+userID);
 
-		// set the suggestion to winner
-		Topics.update(
-			{ _id: topicID },
-			{ $set: action }
-		);
+		Meteor.call('selectWinningResponse', topicID, responseID, userID);
 	},
 
 	clickDeletePromptFunction: function(){
 		if(confirm("Deleting your fantastic pun topic can't be undone! Are you sure you want to live in a world without that topic?"))
 		{
-			Topics.remove(this._id);
+			var userID			= Meteor.userId();
+			var topicID			= this._id;
+
+			Meteor.call('deletePrompt', userID, topicID);
 		}
 	},
 
 	clickDeleteReponseFunction: function(){
 		if(confirm("Are you really the type of person who deletes awesome suggestions, even though it can't be undone?"))
 		{
-			Responses.remove(this._id);
+			var userID 			= Meteor.userId();
+			var responseID	= this._id;
+			
+			Meteor.call('deleteResponse', userID, responseID);
 		}
 	},
 
@@ -80,17 +66,10 @@ Meteor.topicFunctions = {
 
 		var topicID = $(event.currentTarget).children('.form-control').data('id');
 		var suggestionText = event.target.suggest.value;
+		var userID = Meteor.userId();
+		var username = Meteor.user().username;
 
-		var newSuggestion = {
-				text: suggestionText,
-				votes: 0,
-				createdAt: new Date(), // current time
-				owner: Meteor.userId(), // _id of logged in user
-				username: Meteor.user().username,
-				_topicID: topicID
-			};
-
-		newSuggestion._id = Responses.insert(newSuggestion);
+		Meteor.call('insertNewResponse', topicID, suggestionText, userID, username);
 
 		event.target.suggest.value = "";
 		FlashMessages.sendSuccess("Response submitted. You're fully <em>responsible</em> for any groans it causes.");
@@ -119,45 +98,5 @@ Meteor.topicFunctions = {
 			return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]], limit: limit});	
 		}
 
-	},
-
-	createUserVoteForResponse: function(topicID, responseID, userID){
-		var userVoteQuery = {
-			_responseID:	responseID,
-			_userID: 			userID,
-			_topicID: 		topicID,
-		};
-
-		var userVote = UserVotes.findOne(userVoteQuery);
-
-		if(userVote)
-		{
-			// update the vote's createdAt field
-			var updateResult = UserVotes.update(
-				{
-					_id: userVote._id
-				},
-				{
-					$set: {
-						createdAt: new Date()
-					}
-				}
-			);
-		}
-		else
-		{
-			userVoteQuery["createdAt"] = new Date();
-			UserVotes.insert(userVoteQuery);
-
-			// create the incrementing object so we can add to the corresponding vote
-			var action = {
-				'votes': 1
-			};
-
-			Responses.update(
-				{ _id: 	responseID },
-				{ $inc: action }
-			);
-		}
 	}
 }

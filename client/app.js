@@ -75,3 +75,8 @@ Meteor.subscribe("uservotes");
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
 });
+
+Avatar.setOptions({
+	fallbackType: "default image",
+  defaultImageUrl: "http://i1.wp.com/www.techrepublic.com/bundles/techrepubliccore/images/icons/standard/icon-user-default.png"
+});

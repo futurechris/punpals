@@ -5,10 +5,23 @@
  				<a href="/">Home</a>
 				<div class="responseParent well well-lg" data-id="{{ _id }}">
 					{{ >flashMessages }}
-					{{ #if checkTopicOwner _id }}
-						<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
-					{{ /if }}
-					<h3>{{ prompt }} ({{username}})</h3>
+					<div class="detailPrompt row">
+						{{ #if checkTopicOwner _id }}
+							<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
+						{{ /if }}
+						<div class="col-xs-12">
+							<div class="col-xs-1">
+								<center>
+									{{ >avatar user=username shape="circle"}}
+									({{username}})
+								</center>
+								
+							</div>
+							<div class="col-xs-11">
+								<h3>{{ prompt }}</h3>
+							</div>
+						</div>
+					</div>
 					
 					{{ #with topicWinner _id }}
 						{{ >response }}
