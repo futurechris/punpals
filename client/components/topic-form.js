@@ -8,7 +8,7 @@ Template.topicForm.events({
 			return;
 		}
 
-		Meteor.call('insertNewPrompt', event.target.prompt.value, Meteor.userId(), Meteor.user().username);
+		Meteor.call('insertNewPrompt', event.target.title.value, event.target.description.value, Meteor.userId(), Meteor.user().username);
 		FlashMessages.sendSuccess("Prompt submitted. You're <em>dominating!</em>");
 	}
 });

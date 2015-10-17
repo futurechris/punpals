@@ -1,9 +1,10 @@
 Meteor.methods({
-  insertNewPrompt: function (promptText, user, username) {
+  insertNewPrompt: function (titleText, descText, user, username) {
     
   	// get the data we need from the form
 		var newTopic = {
-			prompt: promptText,
+			prompt: titleText,
+			description: descText,
 			createdAt: new Date(), // current time
 			owner: user, // _id of logging in user
 			username: username,

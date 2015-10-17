@@ -1,6 +1,10 @@
 .detailPrompt {
-	border-bottom: #ddd solid 1px;
+	/*border-bottom: #ddd solid 1px;*/
 	padding-bottom: 12px;
+}
+
+.suggest-pun {
+	margin-top: 20px;
 }
 
 .topic button {
@@ -12,7 +16,8 @@ li {
 	list-style: none;
 	padding: 16px 0px 16px 0px;
 	/*padding: 16px;*/
-	border-bottom: #ddd solid 1px;
+	/*border-bottom: #ddd solid 1px;*/
+	border-top: #ddd solid 1px;
 
 }
 
