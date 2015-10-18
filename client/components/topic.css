@@ -11,6 +11,11 @@
 	color: #000;
 }
 
+.counter-text {
+	color: #aaa;
+}
+
+
 li {
 	position: relative;
 	list-style: none;

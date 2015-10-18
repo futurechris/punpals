@@ -1,7 +1,23 @@
-Router.route('/', function() {
-	this.layout('app');
-	this.render('front', {to: 'content'});
+// Router.route('/', function() {
+// 	this.layout('app');
+// 	this.render('front', {to: 'content'});
+// });
+
+
+Router.map(function(){
+	this.route('home',
+	{
+		path: '/',
+
+		action: function(){
+			if(this.ready()){
+				this.layout('app');
+				this.render('front', {to: 'content'});
+			}
+		}
+	});
 });
+
 
 Router.route('/topic/:_id', function() {
 	this.layout('app', {data: function(){ return Topics.findOne({_id: this.params._id }) }});

@@ -4,9 +4,12 @@
 	<form>
 		<div class="topic-group">
 			<label>What's your pun emergency?</label>
-			<input type="text" name="title" class="form-control" placeholder="E.g. I need a boat-themed hashtag for my wedding!"><br/>
-			<label>Tell us more!</label>
-			<textarea resize="vertical" name="description" class="form-control" placeholder="My naut-y, social-media-savvy fiance has demanded a hashtag for our aquatic-themed wedding. Prefer fewer than 20 characters."></textarea>
+			<input id="titlefield" type="text" name="title" class="form-control" placeholder="E.g. I need a boat-themed hashtag for my wedding!">
+			{{ > titleCounter }}
+
+			<br/><label>Tell us more!</label>
+			<textarea id="descfield" resize="vertical" name="description" class="form-control" placeholder="My naut-y, social-media-savvy fiance has demanded a hashtag for our aquatic-themed wedding. Prefer fewer than 20 characters."></textarea>
+			{{ > descCounter }}
 		</div>
 
 		<button type="submit" class="btn btn-lg btn-primary btn-block">Create Pun Prompt</button>
@@ -14,4 +17,12 @@
 	{{ else }}
 		<center>Log in to submit new pun topics! (Only if you want to. No pressure.)</center>
 	{{ /if }}
+</template>
+
+<template name="titleCounter">
+	<span id="titlecounter" class="pull-right counter-text"></span>
+</template>
+
+<template name="descCounter">
+	<span id="desccounter" class="pull-right counter-text"></span>
 </template>
