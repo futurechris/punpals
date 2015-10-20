@@ -25,15 +25,11 @@ Meteor.topicFunctions = {
 		// prevent the default behavior
 		event.preventDefault();
 
-		console.log("clickWinner");
-
 		// get the parent (topic) id
 		// There has to be a better way than this. :)
 		var topicID 		= $(event.currentTarget).parent().parent().parent().parent().parent('.responseParent').data('id');
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
-
-		console.log("passing: "+topicID+" "+responseID+" "+userID);
 
 		Meteor.call('selectWinningResponse', topicID, responseID, userID);
 	},
@@ -45,6 +41,8 @@ Meteor.topicFunctions = {
 			var topicID			= this._id;
 
 			Meteor.call('deletePrompt', userID, topicID);
+			Router.go('/');
+			FlashMessages.sendSuccess("Prompt deleted.");
 		}
 	},
 
