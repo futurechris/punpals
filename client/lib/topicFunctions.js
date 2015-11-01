@@ -65,7 +65,8 @@ Meteor.topicFunctions = {
 		var topicID = $(event.currentTarget).children('.form-control').data('id');
 		var suggestionText = event.target.suggest.value;
 		var userID = Meteor.userId();
-		var username = Meteor.user().username;
+
+		var username = Meteor.user().username || Meteor.user().profile.name;
 
 		Meteor.call('insertNewResponse', topicID, suggestionText, userID, username);
 
