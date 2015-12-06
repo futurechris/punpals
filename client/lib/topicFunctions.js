@@ -3,6 +3,10 @@ Meteor.topicFunctions = {
 		// prevent the default behavior
 		event.preventDefault();
 
+		if(!Meteor.user()){
+			return;
+		}
+
 		// get IDs needed to create vote object
 		var topicID 		= $(event.currentTarget).parent().parent().parent('.topic').data('id');
 		var responseID  = $(event.currentTarget).data('id');
@@ -14,6 +18,10 @@ Meteor.topicFunctions = {
 	clickUnvoteFunction: function(event) {
 		event.preventDefault();
 
+		if(!Meteor.user()){
+			return;
+		}
+
 		var topicID 		= $(event.currentTarget).parent().parent().parent('.topic').data('id');
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
@@ -24,6 +32,10 @@ Meteor.topicFunctions = {
 	clickWinnerFunction: function(event) {
 		// prevent the default behavior
 		event.preventDefault();
+
+		if(!Meteor.user()){
+			return;
+		}
 
 		// get the parent (topic) id
 		// There has to be a better way than this. :)
