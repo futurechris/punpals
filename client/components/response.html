@@ -5,7 +5,7 @@
 			</div>
 			<div class="col-xs-1">
 				<center>
-					{{ >avatar user=username shape="circle" }}
+					{{ > avatar user=(getAvatarUser this.owner) shape="circle"}}
 					({{ username }})
 				</center>
 			</div>

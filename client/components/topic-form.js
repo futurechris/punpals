@@ -8,9 +8,6 @@ Template.topicForm.events({
 			return;
 		}
 
-		console.log("MUI: "+Meteor.userId());
-		console.log("MUU: "+( Meteor.user().username || Meteor.user().profile.name));
-
 		Meteor.call('insertNewPrompt', event.target.title.value.substring(0,140), event.target.description.value.substring(0,1000), Meteor.userId(), ( Meteor.user().username || Meteor.user().profile.name ));
 		FlashMessages.sendSuccess("Prompt submitted. You're <em>dominating!</em>");
 	}

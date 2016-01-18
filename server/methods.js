@@ -6,7 +6,7 @@ Meteor.methods({
 			prompt: titleText,
 			description: descText,
 			createdAt: new Date(), // current time
-			owner: user, // _id of logging in user
+			owner: user, // _id of logged in user
 			username: username,
 			winner: "",
 			modifyDate: new Date()

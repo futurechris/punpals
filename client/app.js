@@ -20,8 +20,18 @@ Router.map(function(){
 
 
 Router.route('/topic/:_id', function() {
-	this.layout('app', {data: function(){ return Topics.findOne({_id: this.params._id }) }});
-	this.render('topicDetail', {to: 'content'});
+	this.layout('app');
+	// this.layout('app', {
+	// 	data: function(){
+	// 	 return Topics.findOne({_id: this.params._id });
+	// 	}
+	// });
+	var item = Topics.findOne({_id: this.params._id });
+	this.render('topicDetail', 
+	{
+		to: 'content',
+		data: item
+	});
 });
 
 Template.body.helpers({
@@ -38,7 +48,7 @@ UI.registerHelper('indexedArray', function(context, options) {
 			return item;
 		});
 	}
-})
+});
 
 UI.registerHelper('checkTopicOwner', function(topicID){
 	if(!Meteor.user()){
@@ -52,7 +62,7 @@ UI.registerHelper('checkTopicOwner', function(topicID){
 		return false;
 	}
 	return topic.username === Meteor.user().username;
-})
+});
 
 UI.registerHelper('checkResponseOwner', function(responseID){
 	if(!Meteor.user()){
@@ -66,14 +76,14 @@ UI.registerHelper('checkResponseOwner', function(responseID){
 		return false;
 	}
 	return response.username === Meteor.user().username;
-})
+});
 
 UI.registerHelper('checkResponseWinner', function(winningID, responseID){
 	if (typeof(winningID) === "undefined"){
 		return false;
 	}
 	return winningID === responseID;
-})
+});
 
 UI.registerHelper('userHasVoted', function(responseID){
 	var userID = Meteor.userId();
@@ -82,11 +92,24 @@ UI.registerHelper('userHasVoted', function(responseID){
 		return false;
 	}
 	return true;
-})
+});
+
+UI.registerHelper('getAvatarUser', function(userID)
+{
+	var user = Meteor.users.findOne({_id: userID});
+	if(user == null)
+	{
+		// This value is a bit of a hack, to force the avatar library to show default image
+		// Would be nice if I could figure out how to make it fall through correctly when the userId was invalid
+		return "0";
+	}
+	return user;
+});
 
 Meteor.subscribe("topics");
 Meteor.subscribe("responses");
 Meteor.subscribe("uservotes");
+Meteor.subscribe("userData");
 
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
@@ -94,5 +117,6 @@ Accounts.ui.config({
 
 Avatar.setOptions({
 	fallbackType: "default image",
+	gravatarDefault: "mm",
   defaultImageUrl: "http://i1.wp.com/www.techrepublic.com/bundles/techrepubliccore/images/icons/standard/icon-user-default.png"
 });
