@@ -61,7 +61,9 @@ UI.registerHelper('checkTopicOwner', function(topicID){
 	if(typeof topic.username === "undefined"){
 		return false;
 	}
-	return topic.username === Meteor.user().username;
+	// Would be good to find a more graceful way to do this, as we move to having more than just local&facebook logins
+	return (topic.username === Meteor.user().username)
+	 || (Meteor.user().profile != null && (topic.username === Meteor.user().profile.name));
 });
 
 UI.registerHelper('checkResponseOwner', function(responseID){
@@ -75,7 +77,10 @@ UI.registerHelper('checkResponseOwner', function(responseID){
 	if(typeof response.username === "undefined"){
 		return false;
 	}
-	return response.username === Meteor.user().username;
+
+	// Would be good to find a more graceful way to do this, as we move to having more than just local&facebook logins
+	return (response.username === Meteor.user().username)
+	 || (Meteor.user().profile != null && (response.username === Meteor.user().profile.name));
 });
 
 UI.registerHelper('checkResponseWinner', function(winningID, responseID){
