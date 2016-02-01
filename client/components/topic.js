@@ -11,4 +11,5 @@ Template.topic.events({
 Template.topic.helpers({
 	topicWinner: Meteor.topicFunctions.topicWinnerHelper,
 	topicResponses: Meteor.topicFunctions.topicResponsesHelper,
+	topicNonWinners: Meteor.topicFunctions.topicNonWinnerHelper,
 });

@@ -9,10 +9,8 @@
 		{{ >response }}
 	{{ /with }}
 
-	{{ #each topicResponses _id 3 }}
-		{{ #unless checkResponseWinner ../winner _id }}
-			{{ >response }}
-		{{ /unless }}
+	{{ #each topicNonWinners _id 2 }}
+		{{ >response }}
 	{{ /each }}
 	<!--
 	<div class="topic-group">

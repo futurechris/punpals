@@ -99,6 +99,25 @@ Meteor.topicFunctions = {
 		return Responses.findOne({_id:topic.winner});
 	},
 
+	topicNonWinnerHelper: function(id, limit){
+		var topic = Topics.findOne({_id:id});
+
+		if(topic === null || typeof topic === "undefined")
+		{
+			return null;
+		}
+		var topicWinnerID = topic.winner;
+
+		if(typeof limit === "undefined" || limit === null || limit == 0)
+		{
+			return Responses.find({_topicID:id, _id: {$ne: topic.winner}}, {sort: [[ "votes", "desc" ]]});
+		}
+		else
+		{
+			return Responses.find({_topicID:id, _id: {$ne: topic.winner}}, {sort: [[ "votes", "desc" ]], limit: limit});	
+		}
+	},
+
 	topicResponsesHelper: function(id, limit){
 		if(typeof limit === "undefined" || limit === null || limit == 0)
 		{
@@ -108,6 +127,5 @@ Meteor.topicFunctions = {
 		{
 			return Responses.find({_topicID:id}, {sort: [[ "votes", "desc" ]], limit: limit});	
 		}
-
 	}
 }

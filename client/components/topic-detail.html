@@ -32,10 +32,8 @@
 						{{ >response }}
 					{{ /with }}
 
-					{{ #each topicResponses _id 0 }}
-						{{ #unless checkResponseWinner ../winner _id }}
-							{{ >response }}
-						{{ /unless }}
+					{{ #each topicNonWinners _id 0 }}
+						{{ >response }}
 					{{ /each }}
 					
 					<div class="topic-group suggest-pun">
