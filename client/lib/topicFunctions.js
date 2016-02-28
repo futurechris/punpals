@@ -78,9 +78,7 @@ Meteor.topicFunctions = {
 		var suggestionText = event.target.suggest.value;
 		var userID = Meteor.userId();
 
-		var username = Meteor.user().username || Meteor.user().profile.name;
-
-		Meteor.call('insertNewResponse', topicID, suggestionText, userID, username);
+		Meteor.call('insertNewResponse', topicID, suggestionText, userID);
 
 		event.target.suggest.value = "";
 		FlashMessages.sendSuccess("Response submitted. You're fully <em>responsible</em> for any groans it causes.");

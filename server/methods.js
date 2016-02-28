@@ -1,13 +1,12 @@
 Meteor.methods({
-  insertNewPrompt: function (titleText, descText, user, username) {
-    
+  insertNewPrompt: function (titleText, descText, userID) {
+
   	// get the data we need from the form
 		var newTopic = {
 			prompt: titleText,
 			description: descText,
 			createdAt: new Date(), // current time
-			owner: user, // _id of logged in user
-			username: username,
+			owner: userID, // _id of logged in user
 			winner: "",
 			modifyDate: new Date()
 		};
@@ -15,14 +14,13 @@ Meteor.methods({
 		Topics.insert(newTopic);
   },
 
-  insertNewResponse: function(topicID, suggestionText, userID, username)
+  insertNewResponse: function(topicID, suggestionText, userID)
   {
 		var newSuggestion = {
 				text: suggestionText,
 				votes: 0,
 				createdAt: new Date(), // current time
 				owner: userID, // _id of logged in user
-				username: username,
 				_topicID: topicID
 			};
 

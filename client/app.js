@@ -1,9 +1,3 @@
-// Router.route('/', function() {
-// 	this.layout('app');
-// 	this.render('front', {to: 'content'});
-// });
-
-
 Router.map(function(){
 	this.route('home',
 	{
@@ -21,11 +15,7 @@ Router.map(function(){
 
 Router.route('/topic/:_id', function() {
 	this.layout('app');
-	// this.layout('app', {
-	// 	data: function(){
-	// 	 return Topics.findOne({_id: this.params._id });
-	// 	}
-	// });
+
 	var item = Topics.findOne({_id: this.params._id });
 	this.render('topicDetail', 
 	{
@@ -50,37 +40,37 @@ UI.registerHelper('indexedArray', function(context, options) {
 	}
 });
 
+UI.registerHelper('getUsername', function(userID){
+	var user = Meteor.users.findOne({_id:userID});
+	if(typeof(user) !== "undefined" && user)
+	{
+		return user.username || user.profile.name
+	}
+	return "";
+});
+
 UI.registerHelper('checkTopicOwner', function(topicID){
 	if(!Meteor.user()){
 		return false;
 	}
-	var topic = Topics.findOne({_id:topicID}, {fields: {username:1}});
+	var topic = Topics.findOne({_id:topicID}, {fields: {owner:1}});
 	if(!topic){
 		return false;
 	}
-	if(typeof topic.username === "undefined"){
-		return false;
-	}
-	// Would be good to find a more graceful way to do this, as we move to having more than just local&facebook logins
-	return (topic.username === Meteor.user().username)
-	 || (Meteor.user().profile != null && (topic.username === Meteor.user().profile.name));
+
+	return topic.owner === Meteor.userId();
 });
 
 UI.registerHelper('checkResponseOwner', function(responseID){
 	if(!Meteor.user()){
 		return false;
 	}
-	var response = Responses.findOne({_id:responseID}, {fields: {username:1}});
+	var response = Responses.findOne({_id:responseID}, {fields: {owner:1}});
 	if(!response){
 		return false;
 	}
-	if(typeof response.username === "undefined"){
-		return false;
-	}
 
-	// Would be good to find a more graceful way to do this, as we move to having more than just local&facebook logins
-	return (response.username === Meteor.user().username)
-	 || (Meteor.user().profile != null && (response.username === Meteor.user().profile.name));
+	return response.owner === Meteor.userId();
 });
 
 UI.registerHelper('checkResponseWinner', function(winningID, responseID){

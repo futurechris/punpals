@@ -15,6 +15,14 @@ Meteor.publish("uservotes", function() {
 
 // server
 Meteor.publish("userData", function () {
-  return Meteor.users.find({}, {fields: {'services.facebook.id': 1}});
+  return Meteor.users.find({},
+  	{
+  		fields: 
+  		{
+  			'services.facebook.id': 1,
+  			'username': 1,
+  			'profile.name': 1
+  		}
+  	});
 });
 
