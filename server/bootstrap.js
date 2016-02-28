@@ -15,10 +15,6 @@ Meteor.publish("uservotes", function() {
 
 // server
 Meteor.publish("userData", function () {
-  if (this.userId) {
-    return Meteor.users.find({_id: this.userId},
-                             {fields: {'services.facebook.id': 1}});
-  } else {
-    this.ready();
-  }
+  return Meteor.users.find({}, {fields: {'services.facebook.id': 1}});
 });
+
