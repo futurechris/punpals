@@ -1,20 +1,18 @@
 <template name="topicDetail">
 	<div class="container">
  		<div class="row">
- 			<div class="col-md-12">
+ 			<div class="col-md-8 col-md-offset-2">
  				<a href="/">Home</a>
 				<div class="responseParent well well-lg" data-id="{{ _id }}">
 					{{ >flashMessages }}
-					<div class="detailPrompt row">
+					<div class="detailPrompt row" >
 						{{ #if checkTopicOwner _id }}
-							<button class="deletePrompt"><img src="/images/trash-small-grey.gif" /></button>
+							<button class="deletePrompt">Delete</button>
 						{{ /if }}
 						<div class="col-xs-12">
 							<div class="col-xs-1">
-								<center>
-									{{ > avatar user=(getAvatarUser this.owner) shape="circle"}}
-									({{ getUsername owner }})
-								</center>
+								{{ > avatar user=(getAvatarUser this.owner) shape="circle"}}
+								{{ getUsername owner }}
 								
 							</div>
 							<div class="col-xs-11">

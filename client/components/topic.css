@@ -6,10 +6,10 @@
 .suggest-pun {
 	margin-top: 20px;
 }
-
+/*
 .topic button {
 	color: #000;
-}
+}*/
 
 .counter-text {
 	color: #aaa;
@@ -20,8 +20,6 @@ li {
 	position: relative;
 	list-style: none;
 	padding: 16px 0px 16px 0px;
-	/*padding: 16px;*/
-	/*border-bottom: #ddd solid 1px;*/
 	border-top: #ddd solid 1px;
 
 }
@@ -39,6 +37,8 @@ li .text {
 .deletePrompt {
 	border: 0px solid transparent;
 	background-color: transparent;
+	color: #777;
+	float: right;
 }
 
 .deleteResponseBtn {

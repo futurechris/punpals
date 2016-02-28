@@ -1,6 +1,9 @@
 body {
 	padding-top: 50px;
 }
+.btn-inline {
+	padding: 0;
+}
 .topics {
 	display: flex;
 	flex-flow:row wrap;
