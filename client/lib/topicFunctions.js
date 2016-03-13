@@ -39,8 +39,8 @@ Meteor.topicFunctions = {
 
 		// get the parent (topic) id
 		// There has to be a better way than this. :)
-		var topicID 		= $(event.currentTarget).parent().parent().parent().parent().parent('.responseParent').data('id');
-		var responseID  = $(event.currentTarget).data('id');
+		var topicID 		= $(document.getElementsByClassName('responseParent')[0]).data('id');
+		var responseID      = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
 
 		Meteor.call('selectWinningResponse', topicID, responseID, userID);
