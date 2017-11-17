@@ -8,6 +8,8 @@ Meteor.topicFunctions = {
 		}
 
 		// get IDs needed to create vote object
+		// TODO: Stop chaining parent() calls
+		// TODO: DRY these lines together with clickUnvoteFunction
 		var topicID 		= $(event.currentTarget).parent().parent().parent('.topic').data('id');
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
@@ -22,6 +24,7 @@ Meteor.topicFunctions = {
 			return;
 		}
 
+		// TODO: Stop chaining parent() calls
 		var topicID 		= $(event.currentTarget).parent().parent().parent('.topic').data('id');
 		var responseID  = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();
@@ -38,7 +41,6 @@ Meteor.topicFunctions = {
 		}
 
 		// get the parent (topic) id
-		// There has to be a better way than this. :)
 		var topicID 		= $(document.getElementsByClassName('responseParent')[0]).data('id');
 		var responseID      = $(event.currentTarget).data('id');
 		var userID 			= Meteor.userId();

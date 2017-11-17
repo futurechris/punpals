@@ -1,5 +1,6 @@
 Meteor.methods({
   insertNewPrompt: function (titleText, descText, userID) {
+  	// TODO: Validate
 
   	// get the data we need from the form
 		var newTopic = {
@@ -16,6 +17,7 @@ Meteor.methods({
 
   insertNewResponse: function(topicID, suggestionText, userID)
   {
+  	// TODO: Validate
 		var newSuggestion = {
 				text: suggestionText,
 				votes: 0,
@@ -29,6 +31,7 @@ Meteor.methods({
 
   selectWinningResponse: function(topicID, responseID, userID)
   {
+  	// TODO: Validate
 		// create the incrementing object so we can add to the corresponding vote
 		var winningString = 'winner';
 		var action = {};
@@ -43,6 +46,7 @@ Meteor.methods({
 
   voteOnResponse: function(topicID, responseID, userID)
   {
+  	// TODO: Validate
 		var userVoteQuery = {
 			_responseID:	responseID,
 			_userID: 			userID,
@@ -84,16 +88,19 @@ Meteor.methods({
 
   deletePrompt: function(userID, topicID)
   {
+  	// TODO: Validate
 		Topics.remove({_id:topicID, owner:userID});
   },
 
   deleteResponse: function(userID, responseID)
   {
+  	// TODO: Validate
 		Responses.remove({_id:responseID, owner:userID});
   },
 
   removeVoteFromResponse: function(topicID, responseID, userID)
   {
+  	// TODO: Validate
 		var foundVote		= UserVotes.findOne({_topicID:topicID, _responseID:responseID, _userID:userID});
 
 		if(!foundVote)

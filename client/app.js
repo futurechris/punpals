@@ -12,7 +12,9 @@ Router.map(function(){
 	});
 });
 
-
+/*
+ * Route for looking at details of a specific topic
+ */
 Router.route('/topic/:_id', function() {
 	this.layout('app');
 
@@ -24,22 +26,10 @@ Router.route('/topic/:_id', function() {
 	});
 });
 
-Template.body.helpers({
-	topics: function(){
-		return Topics.find({}, {sort: [["createdAt", "desc"]]});
-	}	
-});
-
-// adds index to each item
-UI.registerHelper('indexedArray', function(context, options) {
-	if(context)	{
-		return context.map(function(item, index) {
-			item._index = index;
-			return item;
-		});
-	}
-});
-
+/*
+ * Helper for getting username for display, works with Facebook user profile as well.
+ * TODO: Expand to include other login options' data structure, as we add them.
+ */
 UI.registerHelper('getUsername', function(userID){
 	var user = Meteor.users.findOne({_id:userID});
 	if(typeof(user) !== "undefined" && user)
@@ -49,6 +39,9 @@ UI.registerHelper('getUsername', function(userID){
 	return "";
 });
 
+/*
+ * Helper to check if the logged-in user is the owner of the topic in question
+ */
 UI.registerHelper('checkTopicOwner', function(topicID){
 	if(!Meteor.user()){
 		return false;
@@ -61,6 +54,9 @@ UI.registerHelper('checkTopicOwner', function(topicID){
 	return topic.owner === Meteor.userId();
 });
 
+/*
+ * Helper to check if the logged-in user is the owner of the response in question
+ */
 UI.registerHelper('checkResponseOwner', function(responseID){
 	if(!Meteor.user()){
 		return false;
@@ -73,6 +69,9 @@ UI.registerHelper('checkResponseOwner', function(responseID){
 	return response.owner === Meteor.userId();
 });
 
+/*
+ * Helper to check whether the passed-in "winning" id is equal to the current response ID
+ */
 UI.registerHelper('checkResponseWinner', function(winningID, responseID){
 	if (typeof(winningID) === "undefined"){
 		return false;
@@ -80,6 +79,9 @@ UI.registerHelper('checkResponseWinner', function(winningID, responseID){
 	return winningID === responseID;
 });
 
+/*
+ * Helper to check if the user has a vote on the response in question
+ */
 UI.registerHelper('userHasVoted', function(responseID){
 	var userID = Meteor.userId();
 	var voteFound = UserVotes.findOne({_responseID: responseID, _userID: userID});
@@ -89,6 +91,9 @@ UI.registerHelper('userHasVoted', function(responseID){
 	return true;
 });
 
+/*
+ * Hackaround for the avatar library, to get the avatar's user in a lib-friendly format
+ */
 UI.registerHelper('getAvatarUser', function(userID)
 {
 	var user = Meteor.users.findOne({_id: userID});
